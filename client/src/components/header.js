@@ -39,6 +39,9 @@ class Header extends Component {
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/account">Account</NavLink>
                         </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/goal">Goal</NavLink>
+                        </li>
                     </ul>
                     <ul className="navbar-nav">
                         {this.renderSignButton()}

@@ -9,6 +9,7 @@ import App from './components/app';
 import Home from './components/home';
 import Public from './components/public';
 import Account from './components/account';
+import Goal from './components/tool';
 import Signin from './components/auth/signin';
 import Signup from './components/auth/signup';
 import Signout from './components/auth/signout'
@@ -34,6 +35,7 @@ ReactDOM.render(
           <Route exact path="/" component= {Home} />
           <Route path="/public" component= {Public} />
           <Route path="/account" component= {RequireAuth(Account)} />
+          <Route path="/goal" component= {Goal} />
           <Route path="/signin" component= {Signin} />
           <Route path="/signup" component= {Signup} />
           <Route path="/signout" component= {Signout} />

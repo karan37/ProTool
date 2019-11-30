@@ -1,15 +1,8 @@
-import React, { Component } from 'react';
-import Header from './header';
+import React, { useState, Fragment } from 'react'
+import Tool from './tool'
 
-export default class App extends Component {
-  render() {
+export default ({ title, progress }) => {
     return (
-      <div>
-        <Header />
-        <div className='cointainer'>
-            {this.props.children}
-        </div>
-      </div>
+        <Tool />
     );
-  }
 }
