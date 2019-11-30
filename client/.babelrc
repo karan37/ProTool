@@ -1,4 +1,4 @@
 {
-  "presets": ["react", "es2017"],
-  "plugins": ["transform-object-rest-spread", ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "true" }]]
+  "presets": ["@babel/env", "@babel/react"],
+  "plugins": [["import", { "libraryName": "antd", "style": "css" }]]
 }

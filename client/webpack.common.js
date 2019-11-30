@@ -5,7 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry: {
-        app: './src/app.js',
+        app: './src/index.js',
         vender: [ 
             'react', 'react-dom', 'redux', 
             'react-redux', 'react-router-dom', 
@@ -20,7 +20,16 @@ module.exports = {
             {
                 test: /\.jsx?$/,
                 exclude: path.resolve(__dirname, 'node_modules'),
-                loader: 'babel-loader'
+                use : { 
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
+                }
+            },
+            {
+                test: /\.css$/,
+                use: [ 'style-loader', 'css-loader' ]
             },
             {
                 test: /\.s?css$/,
@@ -39,11 +48,6 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({template: path.resolve(__dirname, 'src/index.html')}),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'manifest',
-            filename: "manifest.js",
-            chunks: ['vender']
-        }),
         new ExtractTextPlugin({
             filename: 'styles/style.css'
         }),
