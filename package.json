@@ -4,9 +4,10 @@
   "description": "CRUD in MongoDB, Express, React/Hooks, Node",
   "main": "index.js",
   "scripts": {
-    "test": "eslint --fix **/src/",
-    "precommit": "npm test",
-    "prepush": "npm test",
+    "lint": "eslint --fix **/src/",
+    "test": "jest",
+    "precommit": "npm lint",
+    "prepush": "npm lint",
     "heroku:add": "heroku git:remote -a",
     "deploy:heroku": "git subtree push --prefix server heroku master"
   },
@@ -36,6 +37,7 @@
     "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-standard": "^3.0.1",
     "husky": "^0.14.3",
+    "jest": "^24.9.0",
     "nodemon": "^1.17.5"
   },
   "dependencies": {}
