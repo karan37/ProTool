@@ -6,8 +6,6 @@
   "scripts": {
     "lint": "eslint --fix **/src/",
     "test": "jest",
-    "precommit": "npm lint",
-    "prepush": "npm lint",
     "heroku:add": "heroku git:remote -a",
     "deploy:heroku": "git subtree push --prefix server heroku master"
   },
