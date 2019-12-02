@@ -6,7 +6,7 @@ export default {
     if (!req.header('Authorization')) return res.status(401).send({message: 'Please make sure your request has an Authorization header.'});
     
     // Validate jwt
-    let try_token = req.header('Authorization').split(' ')[0];
+    let try_token = req.header('Authorization').split(' ')[1];
     token.verifyToken(try_token, (err, payload) => {
       if (err) return res.status(401).send(err);
       UserModel.findById(payload.sub)
