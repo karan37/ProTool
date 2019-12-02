@@ -2,21 +2,24 @@ import GoalModel from './model';
 
 const GoalController = {
     getGoal: async (req, res, next) => {
-        console.log({ req: "getGoal", goalId: req.query._id })
-        const goalId = req.query._id
+        console.log({ req: "getGoal" })
+        const userId = req.user._id
+        let goal
         try {
-            goal = await GoalModel.findOne({ _id: goalId })
+            goal = await GoalModel.findOne({ user: userId })
         } catch (e) { next(e) }
         res.json({ goal })
     },
     addGoal: async (req, res, next) => {
         console.log({ req: "addGoal", goal: req.body })
         if (!req.body.title) return res.json({err: "No Goal title specified"})
+        const user = req.user._id
         const goal = new GoalModel({
             tasks: [],
             createdOn: new Date(),
             completedOn: null,
             title: "",
+            user,
             ...req.body
         })
         let newGoal
