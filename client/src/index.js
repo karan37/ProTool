@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import reduxThunk from 'redux-thunk';
+import reduxLogger from 'redux-logger';
 
 import App from './components/app';
 import Home from './components/home';
@@ -19,7 +20,7 @@ import { AUTH_USER } from './actions/types';
 
 import '../style/style.scss'
 
-const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
+const createStoreWithMiddleware = applyMiddleware(reduxThunk, reduxLogger)(createStore);
 const store = createStoreWithMiddleware(reducers)
 const token = localStorage.getItem('auth_jwt_token');
 
@@ -35,7 +36,7 @@ ReactDOM.render(
           <Route exact path="/" component= {Home} />
           <Route path="/public" component= {Public} />
           <Route path="/account" component= {RequireAuth(Account)} />
-          <Route path="/goal" component= {Goal} />
+          <Route path="/goal" component= {RequireAuth(Goal)} />
           <Route path="/signin" component= {Signin} />
           <Route path="/signup" component= {Signup} />
           <Route path="/signout" component= {Signout} />

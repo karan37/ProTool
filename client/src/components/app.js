@@ -1,8 +1,13 @@
 import React, { useState, Fragment } from 'react'
 import Tool from './tool'
+import Header from './header'
 
-export default ({ title, progress }) => {
+export default ({ children }) => {
     return (
-        <Tool />
+        <Tool/>
+        // <div>
+        //     <Header />
+        //     {/* <div>{children}</div> */}
+        // </div>
     );
 }

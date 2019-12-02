@@ -1,14 +1,25 @@
-import React, { useState, Fragment } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Input } from 'antd'
 
 
-export default ({ title, progress }) => {
-    const [isEditting, setIsEditing] = useState(true)
-    const blockName = "titleInput"
-    const modifierName = isEditting ? `${blockName}--isEditing` : ""
-    const className = `${blockName} ${modifierName}`
+export default ({ title }) => {
+    console.log({title})
+    const [value, setValue] = useState(`${title}`)
+    console.log({value})
+    
+    const className = "titleInput"
     const placeHolder = "Please enter your Goal Here"
+
+    const onChange = (e) => {
+        e.preventDefault()
+        setValue(e.target.value)
+    }
     return (
-        <Input className={className} title={title} placeholder={placeHolder} />
+        <Input
+            className={className}
+            value={value}
+            placeholder= {placeHolder}
+            onChange={onChange}
+        />
     );
 }

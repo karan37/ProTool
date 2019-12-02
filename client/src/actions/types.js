@@ -1,4 +1,7 @@
 export const AUTH_USER = 'AUTH_USER';
 export const UNAUTH_USER = 'UNAUTH_USER';
 export const AUTH_ERROR = 'AUTH_ERROR';
-export const GET_USER_PROFILE = 'GET_USER_PROFILE'
+export const GET_USER_PROFILE = 'GET_USER_PROFILE';
+
+export const GET_GOAL_REQUEST = 'GET_GOAL_REQUEST';
+export const GET_GOAL_RESPONSE = 'GET_GOAL_RESPONSE';
