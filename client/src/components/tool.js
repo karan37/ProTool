@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Card } from 'antd';
 
 import GoalBar from './goalBar'
 import TaskArea from './taskArea'
@@ -17,9 +18,11 @@ export default connect(
             actions.getGoal()
         }, [])
         return (
-            <div className="toolContainer">
-                <GoalBar title={goal.title} progress={goal._id} />
+            <Card
+                className="toolContainer"
+                title={<GoalBar title={goal.title} progress={goal._id} />}
+            >
                 <TaskArea tasks={tasks} />
-            </div>
+            </Card>
         );
     })

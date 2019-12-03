@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
 import { Input } from 'antd'
 
-import { upsertGoal } from '../actions'
-
-export const TitleInput = ({ title, ...actions }) => {
+export default ({ title, ...actions }) => {
     const [value, setValue] = useState(`${title}`)
 
     useEffect(() => {
@@ -18,7 +15,7 @@ export const TitleInput = ({ title, ...actions }) => {
 
     const onSubmit = e => {
         e.preventDefault()
-        actions.upsertGoal({title:value})
+        actions.onSubmit({ title: value })
     }
     return (
         <Input
@@ -27,8 +24,7 @@ export const TitleInput = ({ title, ...actions }) => {
             placeholder={"Please enter your Goal Here"}
             onChange={onChange}
             onPressEnter={onSubmit}
+            onBlur={onSubmit}
         />
     );
 }
-
-export default connect(null, { upsertGoal })(TitleInput)
