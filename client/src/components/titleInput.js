@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Input } from 'antd'
 
-export default ({ title, ...actions }) => {
+export default ({ title, placeholder, ...actions }) => {
     const [value, setValue] = useState(`${title}`)
 
     useEffect(() => {
@@ -19,9 +19,9 @@ export default ({ title, ...actions }) => {
     }
     return (
         <Input
-            className={"titleInput"}
+            className={"titleHeading titleHeading--isEditing"}
             value={value}
-            placeholder={"Please enter your Goal Here"}
+            placeholder={placeholder}
             onChange={onChange}
             onPressEnter={onSubmit}
             onBlur={onSubmit}

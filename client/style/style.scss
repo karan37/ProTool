@@ -1,5 +1,128 @@
 body {
   height: 100vh;
+
+  #root {
+    height: 100%;
+  }
+
+  .toolContainer {
+    .ant-card-head {
+      padding: 0px;
+    }
+    .ant-card-head,
+    .ant-card-head-title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .ant-card-head-wrapper {
+      height: 100%;
+      width: 99%;
+    }
+    .ant-card-body {
+      height: 100%;
+      padding: 5px 5px 0px 5px;
+    }
+
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    background-color: #9ff3f5;
+
+    .titleHeading--isEditing {
+      height: 100%;
+    }
+    .titleHeading {
+      text-align: center;
+      width: 100%;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .goal__headerBar {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      flex-grow: 1;
+      height: 10vh;
+      width: 100%;
+
+      .titleHeading--isEditing {
+        font-size: 5vh !important;
+      }
+      .titleHeading {
+        font-size: 3.5vh;
+      }
+
+      .progressIndicator {
+        width: 100px;
+        height: 10px;
+        background-color: red;
+      }
+    }
+
+    .cardBody {
+      overflow-x: scroll;
+      overflow-y: hidden;
+      height: 100%;
+      transform: rotateX(180deg);
+      -ms-transform: rotateX(180deg); /* IE 9 */
+      -webkit-transform: rotateX(180deg); /* Safari */
+    }
+    .taskArea {
+      .ant-card-head {
+        height: 10vh;
+      }
+
+      height: 100%;
+      flex-grow: 6;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: flex-start;
+      width: 100%;
+      height: 100%;
+      transform: rotateX(180deg);
+      -ms-transform: rotateX(180deg); /* IE 9 */
+      -webkit-transform: rotateX(180deg);
+
+      .taskItem {
+        flex-grow: 1;
+        min-width: 400px;
+        height: 100%;
+        margin: 2px;
+        background-color: #fcfdb3;
+
+        .taskItem__headerBar {
+          display: flex;
+          width: 100%;
+          justify-content: center;
+
+          .titleHeading--isEditing {
+            height: 8vh;
+            font-size: 3.5vh !important;
+          }
+          .titleHeading {
+            font-size: 2.5vh;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 543px) {
+  body {
+  }
+}
+
+@media (min-width: 767px) {
+}
+
+body {
   .cointainer {
     padding: 10px;
     padding-top: 30px;
@@ -88,62 +211,4 @@ body {
   button.btn {
     cursor: pointer;
   }
-  #root {
-    height: 100%;
-  }
-  .toolContainer {
-    .ant-card-head,
-    .ant-card-head-title {
-      padding: 0px;
-    }
-    .ant-card-head-wrapper {
-      height: 100%;
-    }
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    align-items: stretch;
-    background-color: blue;
-    .goalBar {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      flex-grow: 1;
-      height: 15vh;
-      width: 100%;
-      background-color: seagreen;
-      padding: 1vw;
-      .titleInput {
-        background-color: yellow;
-        height: 100%;
-      }
-      .titleInput,.titleHeading{
-        text-align: center;
-        font-size: 5vh;
-      }
-      .progressIndicator {
-        width: 100px;
-        height: 10px;
-        background-color: red;
-      }
-    }
-    .taskArea {
-      flex-grow: 6;
-      width: 100%;
-      background-color: black;
-      .ant-card-body {
-        padding: 1px;
-        height: 100%;
-      }
-    }
-  }
-}
-
-@media (max-width: 543px) {
-  body {
-  }
-}
-
-@media (min-width: 767px) {
 }
