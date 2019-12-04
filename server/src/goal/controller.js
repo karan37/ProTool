@@ -10,7 +10,9 @@ const GoalController = {
                 user: userId 
             }, {
                 title: 1,
+                "tasks._id": 1,
                 "tasks.title": 1,
+                "tasks.todos._id": 1,
                 "tasks.todos.text": 1,
                 "tasks.todos.estimate": 1
             })
