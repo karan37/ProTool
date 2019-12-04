@@ -10,6 +10,7 @@ import Middlewares from './api/middlewares'
 import Authentication from './api/authentication'
 import UserRouter from './user/router'
 import GoalRouter from './goal/router'
+import TaskRouter from './task/router'
 
 if(!process.env.JWT_SECRET) {
     const err = new Error('No JWT_SECRET in env variable, check instructions: https://github.com/amazingandyyy/mern#prepare-your-secret');
@@ -37,6 +38,7 @@ app.post('/signin', Authentication.signin)
 app.get('/auth-ping', Middlewares.loginRequired, (req, res) => res.send('connected'))
 app.use('/user', Middlewares.loginRequired, UserRouter)
 app.use('/goal', Middlewares.loginRequired, GoalRouter)
+app.use('/task', Middlewares.loginRequired, TaskRouter)
 
 
 app.use((err, req, res, next) => {
