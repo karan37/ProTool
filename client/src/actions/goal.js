@@ -14,7 +14,7 @@ export const getGoal = () => {
         dispatch({ type: GET_GOAL_REQUEST })
         let response
         try {
-            response = await axios.get(`/goal`)
+            response = await axios.get(`/goal/get`)
             const { goal } = response.data
             dispatch({ type: GET_GOAL_RESPONSE, goal })
         } catch (e) {
@@ -31,7 +31,7 @@ export const upsertGoal = goalFields => {
         if(_id) {
             dispatch({ type: UPDATE_GOAL_REQUEST})
             try {
-                response = await axios.post(`/goal/update`, { _id, ...goalFields })
+                response = await axios.put(`/goal/update`, { _id, ...goalFields })
                 const { updateGoal } = response
                 dispatch({ type: UPDATE_GOAL_RESPONSE, success: updateGoal})
                 dispatch(getGoal())
@@ -42,7 +42,7 @@ export const upsertGoal = goalFields => {
         } else {
             dispatch({ type: ADD_GOAL_REQUEST})
             try {
-                response = await axios.post(`/goal/`, goalFields)
+                response = await axios.post(`/goal/add`, goalFields)
                 const { addGoal } = response
                 dispatch({ type: ADD_GOAL_RESPONSE, success: addGoal})
             } catch (e) {

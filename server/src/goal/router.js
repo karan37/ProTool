@@ -2,9 +2,10 @@ import GoalController from './controller';
 
 const router = require('express').Router();
 
-router.get('/', GoalController.getGoal)
-router.post('/', GoalController.addGoal)
-router.post('/update', GoalController.updateGoal)
+router.get('/get', GoalController.getGoal)
+router.post('/add', GoalController.addGoal)
+router.put('/update', GoalController.updateGoal)
+router.delete('/delete', GoalController.deleteGoal)
 
 
 export default router;
