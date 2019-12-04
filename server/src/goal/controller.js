@@ -6,7 +6,14 @@ const GoalController = {
         const userId = req.user._id
         let goal
         try {
-            goal = await GoalModel.findOne({ user: userId })
+            goal = await GoalModel.findOne({ 
+                user: userId 
+            }, {
+                title: 1,
+                "tasks.title": 1,
+                "tasks.todos.text": 1,
+                "tasks.todos.estimate": 1
+            })
         } catch (e) { next(e) }
         res.json({ goal })
     },
