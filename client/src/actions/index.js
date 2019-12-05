@@ -11,6 +11,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 // Export action modules
 export * from "./user"
 export * from "./goal"
+export * from "./task"
 
 const request = axios;
 export { request };

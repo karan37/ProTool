@@ -16,20 +16,21 @@ export default connect(null, { upsertGoal })(({ title, progress, ...actions }) =
     }, [title])
 
     const onSubmit = goalFields => {
-        setIsEditing(title)
+        setIsEditing(!title)
         actions.upsertGoal(goalFields)
     }
 
     return (
-        <div className={"goal__headerBar"}>
+        <div className={`goal__headerBar ${isEditing ? "goal__headerBar--isEditing" : ""}`}>
             <Popconfirm
-                trigger="hover"
                 placement="bottom"
                 okText="Edit Goal Title"
                 onConfirm={() => setIsEditing(true)}
+                disabled={isEditing}
                 icon={""}
             >
-                {isEditing ? <TitleInput title={title} placeholder={"Goal Title"} onSubmit={onSubmit} /> : <div className="titleHeading">{title}</div>}
+                <TitleInput title={title} placeholder={"Goal Title"} onSubmit={onSubmit} />
+                {isEditing ? null : <div className="titleHeading">{title}</div>}
                 {/* <ProgressIndicator progress={progress} /> */}
             </Popconfirm>
         </div>

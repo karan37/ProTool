@@ -32,9 +32,8 @@ export const upsertGoal = goalFields => {
             dispatch({ type: UPDATE_GOAL_REQUEST})
             try {
                 response = await axios.put(`/goal/update`, { _id, ...goalFields })
-                const { updateGoal } = response
-                dispatch({ type: UPDATE_GOAL_RESPONSE, success: updateGoal})
-                dispatch(getGoal())
+                const { updateGoal } = response.data
+                dispatch({ type: UPDATE_GOAL_RESPONSE, goalFields, success: updateGoal})
             } catch (e) {
                 console.log(e)
                 dispatch({ type: UPDATE_GOAL_RESPONSE, success: null })

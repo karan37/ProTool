@@ -7,16 +7,17 @@ import TaskArea from './taskArea'
 
 import { getGoal } from '../actions'
 
-const mapStateToProps = ({ goal, tasks }) => ({ goal, tasks })
+const mapStateToProps = ({ goal }) => ({ goal })
 
 export default connect(
     mapStateToProps,
     { getGoal }
 )(
-    ({ goal, tasks, ...actions }) => {
+    ({ goal, ...actions }) => {
         useEffect(() => {
             actions.getGoal()
         }, [])
+        const { tasks } = goal
         return (
             <Card
                 className="toolContainer"

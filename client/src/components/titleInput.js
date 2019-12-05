@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Input } from 'antd'
 
-export default ({ title, placeholder, ...actions }) => {
+export default ({ title = "", placeholder, ...actions }) => {
     const [value, setValue] = useState(`${title}`)
 
     useEffect(() => {
         setValue(title)
+        return () => {
+            setValue("")
+        }
     }, [title])
 
     const onChange = e => {
@@ -15,16 +18,18 @@ export default ({ title, placeholder, ...actions }) => {
 
     const onSubmit = e => {
         e.preventDefault()
-        actions.onSubmit({ title: value })
+        if (value) {
+            actions.onSubmit({ title: value })
+            setValue(title)
+        }
     }
     return (
         <Input
-            className={"titleHeading titleHeading--isEditing"}
+            className={"titleInput"}
             value={value}
             placeholder={placeholder}
             onChange={onChange}
             onPressEnter={onSubmit}
-            onBlur={onSubmit}
         />
     );
 }

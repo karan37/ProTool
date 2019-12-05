@@ -1,3 +1,6 @@
+
+import mongoose from 'mongoose';
+
 import GoalModel from '../goal/model';
 
 const TaskController = {
@@ -19,7 +22,9 @@ const TaskController = {
     addTask: async (req, res, next) => {
         console.log({ req: "addTask", task: req.body })
         const { goalId, ...taskFields } = req.body
+        const _id = mongoose.Types.ObjectId()
         const newTask = {
+            _id,
             createdOn: new Date(),
             completedOn: null,
             title: "",
@@ -30,7 +35,8 @@ const TaskController = {
             result = await GoalModel.updateOne({ _id: goalId }, { $push: { tasks: newTask } })
         } catch (e) { next(e) }
         res.json({
-            addTask: Boolean(result && result.nModified && result.nModified === 1)
+            addTask: Boolean(result && result.nModified && result.nModified === 1),
+            _id
         })
     },
     updateTask: async (req, res, next) => {
@@ -65,7 +71,7 @@ const TaskController = {
             })
         } catch (e) { next(e) }
         res.json({
-            updateTask: Boolean(result && result.nModified && result.nModified === 1)
+            deleteTask: Boolean(result && result.nModified && result.nModified === 1)
         })
     }
 }
