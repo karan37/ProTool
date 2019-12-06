@@ -151,10 +151,11 @@ body {
           align-items: center;
           padding: 10px;
           .taskItem__body__content {
-            flex-grow: 6;
+            flex-grow: 1;
+            max-height: 80%;
+            width: 100%;
           }
           .taskItem__body__footer {
-            flex-grow: 1;
           }
         }
       }

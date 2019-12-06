@@ -3,7 +3,9 @@ import { Card, Popconfirm, Button } from 'antd'
 import { connect } from 'react-redux'
 
 import { upsertTask, deleteTask } from '../actions'
+
 import TitleInput from './titleInput'
+import TodoList from './todoList'
 
 const TaskItemHeaderBar = connect(null, { upsertTask })(({ task = {}, ...actions }) => {
     const { title = "", _id } = task
@@ -55,7 +57,7 @@ const TaskItem = connect(null, { deleteTask })(({ task = {}, ...actions }) => {
         <Card title={<TaskItemHeaderBar task={task} />} className="taskItem">
             <div className="taskItem__body">
                 <div className="taskItem__body__content">
-                    {"Hello Ji Hay ni"}
+                    <TodoList todos={task.todos}/>
                 </div>
                 <div className="taskItem__body__footer">
                     <DeleteButton confirmText={"Delete this task"} onConfirm={onClick} disabled={!id} />
