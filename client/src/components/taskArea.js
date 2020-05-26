@@ -57,7 +57,7 @@ const TaskItem = connect(null, { deleteTask })(({ task = {}, ...actions }) => {
         <Card title={<TaskItemHeaderBar task={task} />} className="taskItem">
             <div className="taskItem__body">
                 <div className="taskItem__body__content">
-                    <TodoList todos={task.todos}/>
+                    <TodoList todos={task.todos} />
                 </div>
                 <div className="taskItem__body__footer">
                     <DeleteButton confirmText={"Delete this task"} onConfirm={onClick} disabled={!id} />
@@ -73,7 +73,7 @@ export default ({ tasks = [] }) => {
         <div className="cardBody">
             <div className="taskArea">
                 {tasks.map((task) => <TaskItem task={task} key={`${task._id}`} />)}
-                <TaskItem key={"extra"}/>
+                <TaskItem key={"extra"} />
             </div>
         </div>
     );

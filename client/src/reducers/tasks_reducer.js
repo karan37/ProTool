@@ -2,12 +2,15 @@ import {
     GET_GOAL_REQUEST,
     GET_GOAL_RESPONSE,
     UPDATE_TASK_RESPONSE,
-    UPDATE_TASK_REQUEST
+    UPDATE_TASK_REQUEST,
+    ADD_TODO_REQUEST,
+    ADD_TODO_RESPONSE
 } from '../actions/types';
 
 const taskFields = {
     fetching: false,
     title: "",
+    todos:[]
 }
 
 const taskReducer = (state={}, action) => {
@@ -39,7 +42,7 @@ const taskReducer = (state={}, action) => {
 export default function(state=[], action) {
     switch (action.type) {
         case GET_GOAL_REQUEST:
-            return { ...initState, fetching: true }
+            return { ...state, fetching: true }
         case GET_GOAL_RESPONSE:
             const { goal: { tasks = [] } = {} } = action
             return tasks
@@ -54,6 +57,17 @@ export default function(state=[], action) {
                     return task
                 }
             })
+        // case ADD_TODO_REQUEST:
+        // case ADD_TODO_RESPONSE:
+        //     const { todoFields } = action
+        //     const { taskId } = todoFields
+        //     return state.map(task => {
+        //         if(taskId === task._id){
+        //             return taskReducer(task, action)
+        //         } else {
+        //             return task
+        //         }
+        //     })
         default:
             return state
     }

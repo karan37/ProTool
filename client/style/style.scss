@@ -158,6 +158,12 @@ body {
           .taskItem__body__footer {
           }
         }
+
+        .todoList{
+          .todoList__element{
+            display: flex
+          }
+        }
       }
     }
   }
