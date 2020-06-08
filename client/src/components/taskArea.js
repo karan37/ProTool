@@ -49,7 +49,7 @@ const DeleteButton = ({ confirmText, onConfirm, disabled }) => (
 
 const TaskItem = connect(null, { deleteTask })(({ task = {}, ...actions }) => {
     const id = task._id
-    const onClick = e => {
+    const onConfirmDelete = e => {
         e.preventDefault()
         actions.deleteTask(id)
     }
@@ -57,10 +57,10 @@ const TaskItem = connect(null, { deleteTask })(({ task = {}, ...actions }) => {
         <Card title={<TaskItemHeaderBar task={task} />} className="taskItem">
             <div className="taskItem__body">
                 <div className="taskItem__body__content">
-                    <TodoList todos={task.todos} />
+                    <TodoList todos={task.todos} taskId={id} />
                 </div>
                 <div className="taskItem__body__footer">
-                    <DeleteButton confirmText={"Delete this task"} onConfirm={onClick} disabled={!id} />
+                    <DeleteButton confirmText={"Delete this task"} onConfirm={onConfirmDelete} disabled={!id} />
                 </div>
             </div>
 

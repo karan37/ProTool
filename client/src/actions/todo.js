@@ -16,7 +16,7 @@ export const upsertTodo = todoFields => {
         const { _id: goalId } = goal
         const { _id, taskId } = todoFields
         if (_id && taskId && goalId) {
-            dispatch({ type: UPDATE_TODO_REQUEST, taskFields })
+            dispatch({ type: UPDATE_TODO_REQUEST, todoFields })
             try {
                 response = await axios.put(`/todo/update`, { goalId, taskId, ...todoFields })
                 const { updateTodo } = response.data
@@ -30,7 +30,7 @@ export const upsertTodo = todoFields => {
             try {
                 response = await axios.post(`/todo/add`, { goalId, taskId, ...todoFields })
                 const { addTodo, _id } = response.data
-                dispatch({ type: ADD_TODO_RESPONSE, todoFields:  { ...todoFields, _id, goalId }, success: addTodo })
+                dispatch({ type: ADD_TODO_RESPONSE, todoFields:  { ...todoFields, _id, goalId, taskId }, success: addTodo })
             } catch (e) {
                 console.log(e)
                 dispatch({ type: ADD_TODO_RESPONSE, success: null })

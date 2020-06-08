@@ -44,7 +44,7 @@ export default function(state=[], action) {
         case GET_GOAL_REQUEST:
             return { ...state, fetching: true }
         case GET_GOAL_RESPONSE:
-            const { goal: { tasks = [] } = {} } = action
+            const { goal: { tasks = [] } = {} } = action ||{}
             return tasks
         case UPDATE_TASK_REQUEST:
         case UPDATE_TASK_RESPONSE:

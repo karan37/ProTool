@@ -1,11 +1,14 @@
 import {
     GET_GOAL_RESPONSE,
     UPDATE_TODO_RESPONSE,
-    ADD_TODO_RESPONSE
+    ADD_TODO_RESPONSE,
+    DELETE_TODO_RESPONSE
 } from '../actions/types';
 
+// Possible collision of todoIds of different tasks
+// Solve by concatting todoId-taskId
 const initState = {
-    byId: {},
+    byId: {}, // Possible collision of todoIds of different tasks
     allIds: []
 }
 
@@ -53,7 +56,14 @@ export default function (state = initState, action) {
                         ...updatedTodoFields
                     }
                 },
-                allIds: [...state.allIds, todoId]
+                allIds: state.allIds
+            }
+        case DELETE_TODO_RESPONSE:
+            const { taskId, _id: todoIdToDelete} = action // Possible collision of todoIds of different tasks
+            const {[todoIdToDelete]: deletedItem, ...restOfTodos} = state.byId
+            return {
+                byId: restOfTodos,
+                allIds: state.allIds.filter(id => id !== todoIdToDelete)
             }
         default:
             return state

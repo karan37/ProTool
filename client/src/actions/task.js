@@ -30,7 +30,7 @@ export const upsertTask = taskFields => {
             try {
                 response = await axios.post(`/task/add`, { goalId, ...taskFields })
                 const { addTask, _id } = response.data
-                dispatch({ type: ADD_TASK_RESPONSE, taskFields:  { ...taskFields, _id }, success: addTask })
+                dispatch({ type: ADD_TASK_RESPONSE, taskFields:  { ...taskFields, _id, goalId }, success: addTask })
             } catch (e) {
                 console.log(e)
                 dispatch({ type: ADD_TASK_RESPONSE, success: null })

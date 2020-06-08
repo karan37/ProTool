@@ -22,7 +22,9 @@ const TodoController = {
     addTodo: async (req, res, next) => {
         console.log({ req: "addTodo", todo: req.body })
         const { goalId, taskId, ...todoFields } = req.body
+        const _id = mongoose.Types.ObjectId()
         const newTodo = {
+            _id,
             createdOn: new Date(),
             completedOn: null,
             text: "",
@@ -39,7 +41,8 @@ const TodoController = {
             })
         } catch (e) { next(e) }
         res.json({
-            addTodo: Boolean(result && result.nModified && result.nModified === 1)
+            addTodo: Boolean(result && result.nModified && result.nModified === 1),
+            _id
         })
     },
     updateTodo: async (req, res, next) => {
