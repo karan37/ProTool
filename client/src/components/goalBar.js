@@ -1,13 +1,42 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { DownOutlined, UnorderedListOutlined } from '@ant-design/icons'
 
-import { Popconfirm } from 'antd'
+import { Popconfirm, Button, Dropdown, Menu } from 'antd'
 import TitleInput from './titleInput'
 import ProgressIndicator from './ProgressIndicator'
 
-import { upsertGoal } from '../actions'
+import { upsertGoal, getUserGoals, getGoal } from '../actions'
 
 
+const mapStateToProps = ({ goals }) => {
+    return {
+        goals
+    }
+}
+const MoreGoalsDropDown = connect(mapStateToProps, { getUserGoals, getGoal })(({ goals, getUserGoals, getGoal }) => {
+    const onDropDownClick = (e) => {
+        e.preventDefault()
+        getUserGoals()
+    }
+    const onGoalClick = goalId => (e) => {
+        e.preventDefault()
+        getGoal(goalId)
+    }
+    const goalList = goals.map((goal, i) => <Menu.Item key={i}><a href="#" onClick={onGoalClick(goal._id)}>{goal.title}</a></Menu.Item>)
+    const menu = (
+        <Menu>
+            {goalList}
+        </Menu>
+    );
+    return (
+        <Dropdown overlay={menu} trigger={['click']}>
+            <a className="ant-dropdown-link" onClick={onDropDownClick}>
+                More Goals <DownOutlined />
+            </a>
+        </Dropdown>
+    )
+})
 
 export default connect(null, { upsertGoal })(({ title, progress, ...actions }) => {
     const [isEditing, setIsEditing] = useState(title === "")
@@ -22,6 +51,7 @@ export default connect(null, { upsertGoal })(({ title, progress, ...actions }) =
 
     return (
         <div className={`goal__headerBar ${isEditing ? "goal__headerBar--isEditing" : ""}`}>
+            <MoreGoalsDropDown/>
             <Popconfirm
                 placement="bottom"
                 okText="Edit Goal Title"
@@ -29,10 +59,11 @@ export default connect(null, { upsertGoal })(({ title, progress, ...actions }) =
                 disabled={isEditing}
                 icon={""}
             >
-                <TitleInput title={title} placeholder={"Goal Title"} onSubmit={onSubmit} />
-                {isEditing ? null : <div className="titleHeading">{title}</div>}
+
+                {isEditing ? <TitleInput title={title} placeholder={"Goal Title"} onSubmit={onSubmit} /> : <div className="titleHeading">{title}</div>}
                 {/* <ProgressIndicator progress={progress} /> */}
             </Popconfirm>
+            <div className="goal__moreOptions"><UnorderedListOutlined /></div>
         </div>
     );
 })

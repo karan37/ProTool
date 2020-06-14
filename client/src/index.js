@@ -10,6 +10,7 @@ import App from './components/app';
 import Home from './components/home';
 import Public from './components/public';
 import Account from './components/account';
+import Container from './components/container'
 import Goal from './components/tool';
 import Signin from './components/auth/signin';
 import Signup from './components/auth/signup';
@@ -26,22 +27,22 @@ const token = localStorage.getItem('auth_jwt_token');
 
 // if we have a token, consider the user to be signed in
 if (token) {
-  store.dispatch({type: AUTH_USER})
+  store.dispatch({ type: AUTH_USER })
 }
 ReactDOM.render(
   <Provider store={store}>
-    <HashRouter hashType="noslash">
-      <App>
+    <Container>
+      <HashRouter hashType="noslash">
         <Switch>
-          <Route exact path="/" component= {Home} />
-          <Route path="/public" component= {Public} />
-          <Route path="/account" component= {RequireAuth(Account)} />
-          <Route path="/goal" component= {RequireAuth(Goal)} />
-          <Route path="/signin" component= {Signin} />
-          <Route path="/signup" component= {Signup} />
-          <Route path="/signout" component= {Signout} />
+          <Route exact path="/" component={RequireAuth(App)} />
+          <Route path="/public" component={App} />
+          <Route path="/account" component={RequireAuth(Account)} />
+          <Route path="/goal" component={RequireAuth(Goal)} />
+          <Route path="/signin" component={Signin} />
+          <Route path="/signup" component={Signup} />
+          <Route path="/signout" component={Signout} />
         </Switch>
-      </App>
-    </HashRouter>
+      </HashRouter>
+    </Container>
   </Provider>
   , document.getElementById('root'));

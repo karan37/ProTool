@@ -1,13 +1,27 @@
 import GoalModel from './model';
 
 const GoalController = {
-    getGoal: async (req, res, next) => {
-        console.log({ req: "getGoal" })
+    getGoalsOfUser: async (req, res, next) => {
         const userId = req.user._id
+        let goals
+        try {
+            goals = await GoalModel.find({
+                user: userId
+            }, {
+                title: 1,
+            })
+        } catch (e) { next(e) }
+        res.json({ goals })
+    },
+    getGoal: async (req, res, next) => {
+        const userId = req.user._id
+        const goalId = req.query.goalId
+
         let goal
         try {
-            goal = await GoalModel.findOne({ 
-                user: userId 
+            goal = await GoalModel.findOne({
+                user: userId,
+                ...(goalId ? { _id: goalId } : {})
             }, {
                 title: 1,
                 "tasks._id": 1,
@@ -20,7 +34,6 @@ const GoalController = {
         res.json({ goal })
     },
     addGoal: async (req, res, next) => {
-        console.log({ req: "addGoal", goal: req.body })
         if (!req.body.title) return res.json({ err: "No Goal title specified" })
         const user = req.user._id
         let newGoal
@@ -41,7 +54,6 @@ const GoalController = {
         })
     },
     updateGoal: async (req, res, next) => {
-        console.log({ req: "updateGoal", goalFields: req.body })
         const { _id, ...goalFields } = req.body
         let result
         try {
@@ -52,7 +64,6 @@ const GoalController = {
         })
     },
     deleteGoal: async (req, res, next) => {
-        console.log({ req: "deleteGoal", goalId: req.body })
         const { _id } = req.body
         let result
         try {
