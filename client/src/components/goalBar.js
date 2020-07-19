@@ -5,7 +5,7 @@ import { DownOutlined, UnorderedListOutlined } from '@ant-design/icons'
 import { Popconfirm, Dropdown, Menu } from 'antd'
 import TitleInput from './titleInput'
 
-import { upsertGoal, getUserGoals, getGoal, clearGoal } from '../actions'
+import { upsertGoal, getUserGoals, getGoal, clearGoal , deleteGoal} from '../actions'
 
 
 const mapStateToProps = ({ goals }) => {
@@ -13,7 +13,7 @@ const mapStateToProps = ({ goals }) => {
         goals
     }
 }
-const MoreGoalsDropDown = connect(mapStateToProps, { getUserGoals, getGoal, clearGoal })(({ goals, getUserGoals, getGoal, clearGoal }) => {
+const MoreGoalsDropDown = connect(mapStateToProps, { getUserGoals, getGoal, clearGoal, deleteGoal })(({ goals, getUserGoals, getGoal, clearGoal, deleteGoal }) => {
     const onDropDownClick = e => {
         e.preventDefault()
         getUserGoals()
@@ -26,7 +26,11 @@ const MoreGoalsDropDown = connect(mapStateToProps, { getUserGoals, getGoal, clea
         e.preventDefault()
         clearGoal()
     }
-    const goalList = goals.map((goal, i) => <Menu.Item key={i}><a href="#" onClick={onGoalClick(goal._id)}>{goal.title}</a></Menu.Item>)
+    const onDeleteClick = goalId => e => {
+        e.preventDefault()
+        deleteGoal(goalId)
+    }
+    const goalList = goals.map((goal, i) => <Menu.Item key={i}><a href="#" onClick={onGoalClick(goal._id)}>{goal.title}</a><button onClick={onDeleteClick(goal._id)}>Delete</button></Menu.Item>)
     const menu = (
         <Menu>
             {goalList}

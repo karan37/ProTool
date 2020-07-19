@@ -9,6 +9,8 @@ import {
     UPDATE_GOAL_RESPONSE,
     GET_USER_GOALS_REQUEST,
     GET_USER_GOALS_RESPONSE,
+    DELETE_GOAL_REQUEST,
+    DELETE_GOAL_RESPONSE,
     CLEAR_GOAL
 } from './types';
 
@@ -27,6 +29,26 @@ export const getGoal = goalId => {
         } catch (e) {
             console.log(e)
             dispatch({ type: GET_GOAL_RESPONSE, goal: null })
+        }
+    }
+}
+
+export const deleteGoal = goalId => {
+    return async (dispatch, getState) => {
+        dispatch({ type: DELETE_GOAL_REQUEST, goalId })
+        const { goal: { _id = null } = {} } = getState()
+        let response
+        try {
+            response = await axios.delete(`/goal/delete`, { data: { _id: goalId } })
+            const { goal } = response.data
+            dispatch({ type: DELETE_GOAL_RESPONSE, goal })
+            if(_id === goalId){
+                dispatch(getGoal())
+            }
+            
+        } catch (e) {
+            console.log(e)
+            dispatch({ type: DELETE_GOAL_RESPONSE, goal: null })
         }
     }
 }
@@ -67,7 +89,7 @@ export const upsertGoal = goalFields => {
                 const { addGoal, _id } = response.data
                 dispatch({ type: ADD_GOAL_RESPONSE, success: addGoal })
                 dispatch(getGoal(_id))
-                console.log({addGoal: response.data})
+                console.log({ addGoal: response.data })
             } catch (e) {
                 console.log(e)
                 dispatch({ type: ADD_GOAL_RESPONSE, success: null })
