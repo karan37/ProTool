@@ -8,7 +8,7 @@ export default function(ComposedComponent) {
       if (!this.props.authenticated) {
         this.context.router.history.push('/signin');
       }
-    }
+    } 
 
     render() {
       return <ComposedComponent {...this.props} />

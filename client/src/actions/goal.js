@@ -8,8 +8,13 @@ import {
     UPDATE_GOAL_REQUEST,
     UPDATE_GOAL_RESPONSE,
     GET_USER_GOALS_REQUEST,
-    GET_USER_GOALS_RESPONSE
+    GET_USER_GOALS_RESPONSE,
+    CLEAR_GOAL
 } from './types';
+
+export const clearGoal = () => ({
+    type: CLEAR_GOAL
+})
 
 export const getGoal = goalId => {
     return async dispatch => {
@@ -59,8 +64,10 @@ export const upsertGoal = goalFields => {
             dispatch({ type: ADD_GOAL_REQUEST })
             try {
                 response = await axios.post(`/goal/add`, goalFields)
-                const { addGoal } = response
+                const { addGoal, _id } = response.data
                 dispatch({ type: ADD_GOAL_RESPONSE, success: addGoal })
+                dispatch(getGoal(_id))
+                console.log({addGoal: response.data})
             } catch (e) {
                 console.log(e)
                 dispatch({ type: ADD_GOAL_RESPONSE, success: null })

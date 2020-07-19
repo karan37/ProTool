@@ -6,7 +6,8 @@ import {
     UPDATE_TASK_RESPONSE,
     ADD_TASK_REQUEST,
     ADD_TASK_RESPONSE,
-    DELETE_TASK_RESPONSE
+    DELETE_TASK_RESPONSE,
+    CLEAR_GOAL
 } from '../actions/types';
 import tasksReducer from './tasks_reducer'
 
@@ -18,6 +19,8 @@ const initState = {
 export default function (state = initState, action) {
     const { tasks: stateTasks = [] } = state
     switch (action.type) {
+        case CLEAR_GOAL:
+            return initState
         case GET_GOAL_REQUEST:
             return { ...state, fetching: true }
         case GET_GOAL_RESPONSE:

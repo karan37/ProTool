@@ -1,12 +1,11 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { DownOutlined, UnorderedListOutlined } from '@ant-design/icons'
 
-import { Popconfirm, Button, Dropdown, Menu } from 'antd'
+import { Popconfirm, Dropdown, Menu } from 'antd'
 import TitleInput from './titleInput'
-import ProgressIndicator from './ProgressIndicator'
 
-import { upsertGoal, getUserGoals, getGoal } from '../actions'
+import { upsertGoal, getUserGoals, getGoal, clearGoal } from '../actions'
 
 
 const mapStateToProps = ({ goals }) => {
@@ -14,19 +13,25 @@ const mapStateToProps = ({ goals }) => {
         goals
     }
 }
-const MoreGoalsDropDown = connect(mapStateToProps, { getUserGoals, getGoal })(({ goals, getUserGoals, getGoal }) => {
-    const onDropDownClick = (e) => {
+const MoreGoalsDropDown = connect(mapStateToProps, { getUserGoals, getGoal, clearGoal })(({ goals, getUserGoals, getGoal, clearGoal }) => {
+    const onDropDownClick = e => {
         e.preventDefault()
         getUserGoals()
     }
-    const onGoalClick = goalId => (e) => {
+    const onGoalClick = goalId => e => {
         e.preventDefault()
         getGoal(goalId)
+    }
+    const onCreateClick = e => {
+        e.preventDefault()
+        clearGoal()
     }
     const goalList = goals.map((goal, i) => <Menu.Item key={i}><a href="#" onClick={onGoalClick(goal._id)}>{goal.title}</a></Menu.Item>)
     const menu = (
         <Menu>
             {goalList}
+            <Menu.Divider />
+            <Menu.Item key={goalList.length}><a href="#" onClick={onCreateClick}>Create New</a></Menu.Item>
         </Menu>
     );
     return (
@@ -51,7 +56,7 @@ export default connect(null, { upsertGoal })(({ title, progress, ...actions }) =
 
     return (
         <div className={`goal__headerBar ${isEditing ? "goal__headerBar--isEditing" : ""}`}>
-            <MoreGoalsDropDown/>
+            <MoreGoalsDropDown />
             <Popconfirm
                 placement="bottom"
                 okText="Edit Goal Title"

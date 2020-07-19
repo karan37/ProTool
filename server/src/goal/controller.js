@@ -51,6 +51,7 @@ const GoalController = {
 
         res.json({
             addGoal: Boolean(newGoal),
+            _id: newGoal._id
         })
     },
     updateGoal: async (req, res, next) => {
